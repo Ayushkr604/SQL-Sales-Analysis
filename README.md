@@ -103,3 +103,30 @@ Cancelled invoices were identified using invoice numbers beginning with
 For completed-sales analysis, cancelled invoices were excluded using:
 ```sql
 WHERE invoice_no NOT LIKE 'C%'
+
+
+---
+
+## 📸 Analysis Results
+
+### Executive KPIs
+
+![Executive KPIs](screenshots/executive_kpis.png)
+
+### Top Customers
+
+![Top Customers](screenshots/top_customers.png)
+
+### Top Products by Revenue
+
+![Top Products](screenshots/top_products_revenue.png)
+
+### Monthly Revenue
+
+![Monthly Revenue](screenshots/monthly_revenue.png)
+
+### Customer Segmentation
+
+![Customer Segmentation](screenshots/customer_segments.png)
+
+---

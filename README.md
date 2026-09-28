@@ -130,3 +130,58 @@ WHERE invoice_no NOT LIKE 'C%'
 ![Customer Segmentation](screenshots/customer_segments.png)
 
 ---
+
+## 💡 Business Insights
+
+The SQL analysis identified several key patterns in customer behaviour, product performance, and sales trends:
+
+- **£10.64M in completed revenue** was generated across **22,064 completed orders**, with an **average order value of £482.44**.
+- The dataset contains **4,373 customers** and **4,070 products**.
+- Among customers with usable customer IDs, **2,845 were repeat customers** and **1,494 were one-time customers**.
+- **November 2011** was the strongest sales month, generating approximately **£1.51M** in revenue from **3,021 orders**.
+- **Customer 14646** generated **£280,206.02** across 74 orders.
+- **Customer 16446** generated **£168,472.50 from only 2 orders**, highlighting a high-value customer pattern worth further investigation.
+- **REGENCY CAKESTAND 3 TIER** generated **£174,484.74** in revenue.
+- **PAPER CRAFT, LITTLE BIRDIE** generated **£168,469.60** in revenue.
+- The dataset contains **3,836 cancelled orders** compared with **22,064 completed orders**.
+- Customer-level analysis excluded blank customer IDs to avoid treating missing customer information as an actual customer.
+
+> **Note:** Completed-sales analysis excludes invoices beginning with `C`, which represent cancelled transactions.
+
+---
+
+## 🧠 SQL Techniques Demonstrated
+
+- Aggregations using `SUM()`, `AVG()`, `COUNT()`
+- Filtering with `WHERE`
+- Grouping with `GROUP BY`
+- Conditional logic using `CASE`
+- Common Table Expressions (CTEs)
+- Subqueries
+- Window functions
+- `RANK()`
+- `LAG()`
+- Customer segmentation
+- Revenue and order analysis
+- Time-series analysis using `strftime()`
+- Cancellation analysis
+- Revenue concentration analysis
+
+---
+
+## 📈 Key KPI Snapshot
+
+| KPI | Value |
+|---|---:|
+| Completed Orders | 22,064 |
+| Customers | 4,373 |
+| Products | 4,070 |
+| Completed Revenue | £10,644,560.42 |
+| Average Order Value | £482.44 |
+| Repeat Customers* | 2,845 |
+| One-Time Customers* | 1,494 |
+| Cancelled Orders | 3,836 |
+
+\*Based on customers with usable customer IDs.
+
+---

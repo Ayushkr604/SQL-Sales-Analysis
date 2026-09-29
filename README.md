@@ -1,12 +1,67 @@
-# SQL Sales Analysis
+# 📊 SQL Sales Analysis
 
-## 📊 Project Overview
+> End-to-end retail sales analysis using SQL and SQLite
 
-This project analyzes retail sales data using SQL and SQLite to identify
-sales trends, customer behavior, product performance, and business insights.
+---
 
-The project demonstrates practical SQL skills including aggregation,
-filtering, CTEs, subqueries, and window functions.
+## 🎯 Project Overview
+
+This project analyzes retail transaction data using SQL and SQLite to identify:
+
+- Sales trends
+- Customer behaviour
+- Product performance
+- Revenue patterns
+- Cancellation impact
+- Business insights
+
+The project demonstrates practical SQL skills including aggregations, filtering, CTEs, subqueries, and window functions.
+
+---
+
+## 🔄 Project Workflow
+
+```text
+                ONLINE RETAIL DATASET
+                         │
+                         ▼
+                ┌─────────────────┐
+                │ Data Preparation│
+                └────────┬────────┘
+                         │
+              ┌──────────┴──────────┐
+              │                     │
+              ▼                     ▼
+       Clean Data Fields      Calculate Revenue
+              │                     │
+              └──────────┬──────────┘
+                         ▼
+                  ┌─────────────┐
+                  │ sales_clean │
+                  └──────┬──────┘
+                         │
+                         ▼
+                ┌─────────────────┐
+                │   SQL ANALYSIS  │
+                └────────┬────────┘
+                         │
+       ┌─────────────────┼─────────────────┐
+       │                 │                 │
+       ▼                 ▼                 ▼
+   CUSTOMER           PRODUCT            TIME
+   ANALYSIS           ANALYSIS          ANALYSIS
+       │                 │                 │
+       └─────────────────┼─────────────────┘
+                         │
+                         ▼
+                ADVANCED ANALYSIS
+                         │
+                         ▼
+                BUSINESS INSIGHTS
+                         │
+                         ▼
+                  KPIs & RESULTS
+```
 
 ---
 
@@ -30,13 +85,73 @@ The analysis answers questions such as:
 
 ---
 
+## 📦 Dataset
+
+The project uses the **Online Retail** dataset containing transactional retail sales data.
+
+### Dataset Fields
+
+| Field | Description |
+|---|---|
+| `InvoiceNo` | Invoice/order identifier |
+| `StockCode` | Product identifier |
+| `Description` | Product description |
+| `Quantity` | Number of units purchased |
+| `InvoiceDate` | Transaction date and time |
+| `UnitPrice` | Price per unit |
+| `CustomerID` | Customer identifier |
+| `Country` | Customer country |
+
+The raw dataset is excluded from GitHub using `.gitignore`.
+
+---
+
+## 🧹 Data Preparation
+
+A cleaned analytical table called `sales_clean` was created from the raw transaction data.
+
+### Data Flow
+
+```text
+Raw Transactions
+       │
+       ▼
+Clean text fields
+       │
+       ▼
+Calculate revenue
+       │
+       ▼
+Identify cancelled invoices
+       │
+       ▼
+sales_clean
+```
+
+Revenue was calculated as:
+
+```text
+quantity × unit_price
+```
+
+Cancelled invoices were identified using invoice numbers beginning with `C`.
+
+For completed-sales analysis:
+
+```sql
+WHERE invoice_no NOT LIKE 'C%'
+```
+
+Customer-level analysis excludes missing or blank customer IDs when analysing customer behaviour.
+
+---
+
 ## 🗂️ Project Structure
 
 ```text
 SQL-Sales-Analysis/
 │
 ├── data/
-│   └── .gitkeep
 │
 ├── database/
 │   └── sales_analysis.db
@@ -51,59 +166,165 @@ SQL-Sales-Analysis/
 │   └── 07_business_insights.sql
 │
 ├── screenshots/
+│   ├── executive_kpis.png
+│   ├── top_customers.png
+│   ├── top_products_revenue.png
+│   ├── monthly_revenue.png
+│   └── customer_segments.png
 │
+├── DATA_DICTIONARY.md
 ├── .gitignore
 └── README.md
+```
 
+> The raw dataset and SQLite database are kept locally and excluded from GitHub because of their size.
 
 ---
 
-## 📦 Dataset
+# 🔎 Analysis Modules
 
-The project uses the **Online Retail** dataset containing transactional
-retail sales data.
+## 01 — Database Setup
+
+Creates the raw and cleaned analytical tables and prepares the dataset for analysis.
+
+## 02 — Basic Analysis
+
+Answers fundamental sales questions including:
+
+- Total revenue
+- Total orders
+- Average revenue
+- Quantity sold
+- Number of products
+- Number of customers
+- Countries served
+
+## 03 — Customer Analysis
+
+Analyzes:
+
+- Top customers
+- Customer order frequency
+- One-time vs repeat customers
+- Customer value segments
+- Customer lifetime value
+- Revenue concentration
+
+## 04 — Product Analysis
+
+Analyzes:
+
+- Top products by revenue
+- Top products by quantity
+- Average selling price
+- Product order frequency
+- Product revenue contribution
+- High-revenue products
+
+## 05 — Time Analysis
+
+Analyzes:
+
+- Monthly revenue
+- Monthly orders
+- Day-of-week performance
+- Hourly sales
+- Monthly revenue growth
+- Monthly AOV
+
+## 06 — Advanced Analysis
+
+Uses CTEs and window functions for deeper analysis including:
+
+- Customer lifetime value
+- Customer revenue ranking
+- Top products by country
+- Repeat customer revenue
+- Revenue concentration
+
+## 07 — Business Insights
+
+Combines the analysis into business-focused metrics covering:
+
+- Cancellation impact
+- Cancellation rate
+- Average order value
+- Average items per order
+- Revenue per customer
+- High-revenue products
+- Executive KPIs
+
+---
+
+## 📊 Executive KPI Snapshot
+
+| KPI | Value |
+|---|---:|
+| Completed Orders | **22,064** |
+| Customers | **4,373** |
+| Products | **4,070** |
+| Completed Revenue | **£10,644,560.42** |
+| Average Order Value | **£482.44** |
+| Repeat Customers* | **2,845** |
+| One-Time Customers* | **1,494** |
+| Cancelled Orders | **3,836** |
+
+\*Based on customers with usable customer IDs.
+
+---
+
+## 💡 Key Business Insights
+
+### 💰 Revenue Performance
+
+**£10.64M** in completed revenue was generated across **22,064 completed orders**, with an average order value of **£482.44**.
+
+### 👥 Customer Behaviour
+
+Among customers with usable customer IDs:
+
+- **2,845 repeat customers**
+- **1,494 one-time customers**
+
+### 📅 Sales Trend
+
+**November 2011** was the strongest sales month:
+
+**£1.51M revenue | 3,021 orders**
+
+### 🏆 High-Value Customers
+
+Customer **14646** generated:
+
+**£280,206.02 | 74 orders**
+
+Customer **16446** generated:
+
+**£168,472.50 | 2 orders**
+
+This represents a high-value customer pattern worth further investigation.
+
+### 🛍️ Product Performance
+
+**REGENCY CAKESTAND 3 TIER**
+
+**£174,484.74** revenue
+
+**PAPER CRAFT, LITTLE BIRDIE**
+
+**£168,469.60** revenue
+
+### 🔄 Cancellation Analysis
 
 The dataset contains:
 
-- Invoice number
-- Product/Stock code
-- Product description
-- Quantity
-- Invoice date
-- Unit price
-- Customer ID
-- Country
+**3,836 cancelled orders**
 
-The raw dataset is excluded from GitHub using `.gitignore`.
+compared with:
 
----
+**22,064 completed orders**
 
-## 🛠️ Tools & Technologies
-
-- SQL
-- SQLite
-- Git & GitHub
-- GitHub Codespaces
-- Python / Pandas for dataset preparation
-
----
-
-## 🧹 Data Preparation
-
-A cleaned analytical table called `sales_clean` was created from the raw
-transaction data.
-
-Revenue was calculated as:
-
-quantity * unit_price
-
-Cancelled invoices were identified using invoice numbers beginning with
-`C`.
-
-For completed-sales analysis, cancelled invoices were excluded using:
-```sql
-WHERE invoice_no NOT LIKE 'C%'
-
+> **Note:** Completed-sales analysis excludes invoices beginning with `C`, which represent cancelled transactions.
 
 ---
 
@@ -113,40 +334,21 @@ WHERE invoice_no NOT LIKE 'C%'
 
 ![Executive KPIs](screenshots/executive_kpis.png)
 
-### Top Customers
+### Customer Analysis
 
 ![Top Customers](screenshots/top_customers.png)
 
-### Top Products by Revenue
+### Product Analysis
 
 ![Top Products](screenshots/top_products_revenue.png)
 
-### Monthly Revenue
+### Time Analysis
 
 ![Monthly Revenue](screenshots/monthly_revenue.png)
 
 ### Customer Segmentation
 
 ![Customer Segmentation](screenshots/customer_segments.png)
-
----
-
-## 💡 Business Insights
-
-The SQL analysis identified several key patterns in customer behaviour, product performance, and sales trends:
-
-- **£10.64M in completed revenue** was generated across **22,064 completed orders**, with an **average order value of £482.44**.
-- The dataset contains **4,373 customers** and **4,070 products**.
-- Among customers with usable customer IDs, **2,845 were repeat customers** and **1,494 were one-time customers**.
-- **November 2011** was the strongest sales month, generating approximately **£1.51M** in revenue from **3,021 orders**.
-- **Customer 14646** generated **£280,206.02** across 74 orders.
-- **Customer 16446** generated **£168,472.50 from only 2 orders**, highlighting a high-value customer pattern worth further investigation.
-- **REGENCY CAKESTAND 3 TIER** generated **£174,484.74** in revenue.
-- **PAPER CRAFT, LITTLE BIRDIE** generated **£168,469.60** in revenue.
-- The dataset contains **3,836 cancelled orders** compared with **22,064 completed orders**.
-- Customer-level analysis excluded blank customer IDs to avoid treating missing customer information as an actual customer.
-
-> **Note:** Completed-sales analysis excludes invoices beginning with `C`, which represent cancelled transactions.
 
 ---
 
@@ -169,19 +371,31 @@ The SQL analysis identified several key patterns in customer behaviour, product 
 
 ---
 
-## 📈 Key KPI Snapshot
+## 🛠️ Tools & Technologies
 
-| KPI | Value |
-|---|---:|
-| Completed Orders | 22,064 |
-| Customers | 4,373 |
-| Products | 4,070 |
-| Completed Revenue | £10,644,560.42 |
-| Average Order Value | £482.44 |
-| Repeat Customers* | 2,845 |
-| One-Time Customers* | 1,494 |
-| Cancelled Orders | 3,836 |
-
-\*Based on customers with usable customer IDs.
+- SQL
+- SQLite
+- Python / Pandas
+- Git
+- GitHub
+- GitHub Codespaces
 
 ---
+
+## 📚 Documentation
+
+- [Data Dictionary](DATA_DICTIONARY.md)
+
+---
+
+## 🚀 Future Enhancement
+
+The next phase of the project will be an interactive **Power BI dashboard** built from the cleaned sales dataset.
+
+---
+
+## 👤 Author
+
+**Ayush Kumar**
+
+Computer Science — BITS Pilani

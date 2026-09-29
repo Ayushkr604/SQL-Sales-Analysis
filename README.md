@@ -181,6 +181,8 @@ SQL-Sales-Analysis/
 
 ---
 
+## ▶️ How to Run section.
+
 # 🔎 Analysis Modules
 
 ## 01 — Database Setup

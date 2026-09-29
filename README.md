@@ -181,7 +181,66 @@ SQL-Sales-Analysis/
 
 ---
 
-## ▶️ How to Run section.
+## ▶️ How to Run
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Ayushkr604/SQL-Sales-Analysis.git
+cd SQL-Sales-Analysis
+```
+
+### 2. Download the Online Retail dataset
+
+Download the **Online Retail** dataset and place the CSV file inside:
+
+```text
+data/sales_data.csv
+```
+
+The raw dataset is intentionally excluded from GitHub because of its size.
+
+### 3. Create the SQLite database
+
+Run:
+
+```bash
+sqlite3 database/sales_analysis.db
+```
+
+Then inside SQLite:
+
+```sql
+.read sql/01_database_setup.sql
+```
+
+This creates the `sales_raw` and `sales_clean` tables.
+
+### 4. Run the SQL analysis modules
+
+Run the analysis scripts in order:
+
+```sql
+.read sql/02_basic_analysis.sql
+.read sql/03_customer_analysis.sql
+.read sql/04_product_analysis.sql
+.read sql/05_time_analysis.sql
+.read sql/06_advanced_analysis.sql
+.read sql/07_business_insights.sql
+```
+
+### 5. Explore the results
+
+The SQL scripts generate analysis covering:
+
+- Sales KPIs
+- Customer behaviour
+- Product performance
+- Monthly sales trends
+- Advanced customer and product analysis
+- Cancellation analysis
+- Business insights
+
 
 # 🔎 Analysis Modules
 

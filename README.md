@@ -307,17 +307,27 @@ Exit SQLite:
 
 ## 📷 Project Screenshots
 
-The `screenshots/` folder is intended to showcase key query outputs and analytical findings.
+The following screenshots showcase key results from the SQL analysis.
 
-When viewing the repository, use these screenshots to explore:
+### 1. Executive Sales KPIs
 
-- Executive sales KPIs
-- Top customers by revenue
-- Top products by revenue
-- Monthly revenue trends
-- Customer segments
+![Executive Sales KPIs](screenshots/executive_kpis.png)
 
-These images are supporting evidence for the analysis; the SQL scripts remain the source of the calculations.
+### 2. Top Customers by Revenue
+
+![Top Customers by Revenue](screenshots/top_customers.png)
+
+### 3. Top Products by Revenue
+
+![Top Products by Revenue](screenshots/top_products_revenue.png)
+
+### 4. Monthly Revenue Trends
+
+![Monthly Revenue Trends](screenshots/monthly_revenue.png)
+
+### 5. Customer Segmentation
+
+![Customer Segmentation](screenshots/customer_segments.png)
 
 ---
 

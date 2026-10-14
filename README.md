@@ -331,6 +331,64 @@ The following screenshots showcase key results from the SQL analysis.
 
 ---
 
+## 💡 Business Recommendations
+
+The SQL analysis identifies several areas where a retail business can investigate opportunities to improve revenue, customer retention, and operational performance.
+
+### 1. Investigate Order Cancellations
+
+The cancellation analysis measures cancelled orders, cancellation rate, and the revenue associated with cancelled transactions.
+
+**Recommendation:** Investigate the most common reasons for cancellations, such as stock availability, order-entry errors, or customer-requested cancellations. Use these findings to prioritize improvements in order processing.
+
+**SQL analysis:** Cancellation impact and cancellation rate in `07_business_insights.sql`.
+
+### 2. Improve Average Order Value
+
+The project calculates average order value (AOV) and the average number of items per completed order.
+
+**Recommendation:** Evaluate product bundles, complementary-product recommendations, and targeted promotions to encourage customers to add relevant items to their orders. Measure whether these initiatives increase AOV without reducing profitability.
+
+**SQL analysis:** Completed-order AOV and average items per order in `07_business_insights.sql`.
+
+### 3. Strengthen Customer Retention
+
+The customer analysis and retention module examine customer purchasing behavior and repeat purchases.
+
+**Recommendation:** Identify customers who have not purchased recently and test targeted re-engagement campaigns. Compare repeat-purchase rates before and after each campaign to measure its effectiveness.
+
+**SQL analysis:** `03_customer_analysis.sql` and `09_customer_retention.sql`.
+
+### 4. Prioritize High-Revenue Products
+
+The product analysis identifies products generating substantial revenue and examines their sales quantities and average prices.
+
+**Recommendation:** Review high-revenue products when planning inventory availability and promotional campaigns. Consider both revenue and quantity sold rather than relying on revenue alone.
+
+**SQL analysis:** `04_product_analysis.sql` and the high-revenue product query in `07_business_insights.sql`.
+
+### 5. Compare International Markets
+
+The country analysis compares revenue, order counts, and customer counts across countries. The business-insights module also calculates revenue per identified customer.
+
+**Recommendation:** Compare markets using total revenue, customer base, and revenue per customer together. Investigate markets with promising results before deciding whether to invest in localized marketing or customer acquisition.
+
+**SQL analysis:** `10_country_sales_analysis.sql` and the revenue-per-customer query in `07_business_insights.sql`.
+
+### 6. Improve Data Quality
+
+The project checks data quality issues, including missing customer information and cancellation records.
+
+**Recommendation:** Establish routine checks for missing identifiers, inconsistent records, and cancellation transactions before producing business reports. Document filtering rules so that revenue and customer metrics remain comparable.
+
+**SQL analysis:** `08_data_quality_checks.sql`.
+
+### Measuring Business Impact
+
+These recommendations are opportunities to investigate, not claims that a business intervention has already succeeded.
+
+---
+
 ## 🔐 Data and Privacy
 
 The repository does not intentionally include the local raw CSV files, Excel dataset, or generated SQLite database.

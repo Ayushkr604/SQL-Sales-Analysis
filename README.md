@@ -1,148 +1,116 @@
 # 📊 SQL Sales Analysis
 
-> End-to-end retail sales analysis using SQL and SQLite
+**An end-to-end retail sales data analysis project using SQL and SQLite.**
+
+This project analyzes the UCI Online Retail dataset to uncover business insights related to sales performance, customer purchasing behavior, product revenue, monthly trends, customer retention, and international sales.
+
+The goal is to demonstrate practical SQL skills, data cleaning, exploratory analysis, business intelligence, and the ability to translate raw retail transaction data into actionable insights.
 
 ---
 
-## 🎯 Project Overview
+## 📌 Project Overview
 
-This project analyzes retail transaction data using SQL and SQLite to identify:
+The project uses a retail transaction dataset containing over 500,000 records. SQL queries are used to clean the data, calculate key performance indicators, identify trends, and answer business questions.
 
-- Sales trends
-- Customer behaviour
-- Product performance
-- Revenue patterns
-- Cancellation impact
-- Business insights
+**Tools and technologies**
+- **SQL** — data cleaning, aggregation, joins, filtering, and business analysis
+- **SQLite** — relational database management and query execution
+- **Excel / CSV** — data inspection and preparation
+- **Git and GitHub** — version control and project documentation
 
-The project demonstrates practical SQL skills including aggregations, filtering, CTEs, subqueries, and window functions.
+## 📈 Key Results
+
+The following results are from the project's existing analysis.
+
+| Metric | Result |
+|---|---:|
+| Transaction rows | 541,909 |
+| Unique customers with recorded IDs | 4,373 |
+| Unique products | 4,070 |
+| Completed orders | 22,064 |
+| Completed-order revenue | £10,644,560.42 |
+| Average order value (AOV) | £482.44 |
+| Cancelled invoices | 3,836 |
+| Revenue from cancelled invoices | -£896,812.49 |
+
+### Key Business Findings
+
+- **Geographic performance:** The United Kingdom generated the highest revenue in the country-level analysis.
+- **Monthly performance:** November 2011 was the strongest month by completed-order revenue.
+- **Customer retention:** Repeat customers represented approximately 65.6% of identified customers with completed-order activity.
+- **Data quality:** The dataset contains missing customer IDs and cancellation transactions that require careful handling.
+- **Product performance:** Product-level revenue analysis identifies leading revenue contributors and helps distinguish ordinary products from service-related entries.
+
+> **Metric definitions:** Completed-order revenue excludes invoices marked as cancellations. Average order value is based on completed orders, not individual transaction lines. Customer retention figures include identified customers with completed-order activity. Country-level analysis excludes records without an identified customer ID, so its totals may differ from the overall sales analysis.
+
+---
+
+## 🎯 Business Questions
+
+This project explores the following questions:
+
+1. What are the overall sales KPIs and revenue trends?
+2. How many orders, customers, and products are represented in the dataset?
+3. Which customers generate the most revenue?
+4. Which products contribute the most revenue?
+5. How does revenue change over time?
+6. What proportion of customers make repeat purchases?
+7. What data-quality issues exist in the raw transaction data?
+8. How do sales and order values differ across countries?
+9. How do cancellations affect the interpretation of sales performance?
+10. What actionable business insights can be derived from the analysis?
+
+---
+
+## 📂 Dataset
+
+The project uses the **UCI Online Retail dataset**, which contains transactions from a UK-based online retailer.
+
+### Dataset Columns
+
+| Column | Description |
+|---|---|
+| `InvoiceNo` | Invoice number identifying a transaction; cancellation invoices typically begin with `C` |
+| `StockCode` | Product code |
+| `Description` | Product description |
+| `Quantity` | Number of units in the transaction line |
+| `InvoiceDate` | Date and time of the transaction |
+| `UnitPrice` | Price per unit in pounds sterling |
+| `CustomerID` | Customer identifier, when available |
+| `Country` | Customer's country |
+
+The dataset contains 541,909 transaction rows. Some records have missing customer IDs or descriptions, and cancellation transactions require special treatment during analysis.
+
+**Data availability:** The raw dataset and generated SQLite database are excluded from this GitHub repository. You must obtain the dataset separately and prepare the CSV file described in the setup instructions below.
 
 ---
 
 ## 🔄 Project Workflow
 
 ```text
-                ONLINE RETAIL DATASET
-                         │
-                         ▼
-                ┌─────────────────┐
-                │ Data Preparation│
-                └────────┬────────┘
-                         │
-              ┌──────────┴──────────┐
-              │                     │
-              ▼                     ▼
-       Clean Data Fields      Calculate Revenue
-              │                     │
-              └──────────┬──────────┘
-                         ▼
-                  ┌─────────────┐
-                  │ sales_clean │
-                  └──────┬──────┘
-                         │
-                         ▼
-                ┌─────────────────┐
-                │   SQL ANALYSIS  │
-                └────────┬────────┘
-                         │
-       ┌─────────────────┼─────────────────┐
-       │                 │                 │
-       ▼                 ▼                 ▼
-   CUSTOMER           PRODUCT            TIME
-   ANALYSIS           ANALYSIS          ANALYSIS
-       │                 │                 │
-       └─────────────────┼─────────────────┘
-                         │
-                         ▼
-                ADVANCED ANALYSIS
-                         │
-                         ▼
-                BUSINESS INSIGHTS
-                         │
-                         ▼
-                  KPIs & RESULTS
+Raw Retail Dataset
+        |
+        v
+CSV Data Preparation
+        |
+        v
+SQLite Database Setup
+        |
+        v
+Data Cleaning and Validation
+        |
+        v
+Exploratory SQL Analysis
+        |
+        v
+Customer, Product and Time Analysis
+        |
+        v
+Retention and Country Analysis
+        |
+        v
+Business Insights
 ```
-
----
-
-## 🎯 Business Questions
-
-The analysis answers questions such as:
-
-- What is the total revenue generated?
-- What is the average order value?
-- How many customers and products are there?
-- Which countries generate the most revenue?
-- Which products generate the most revenue?
-- Which products sell the highest quantities?
-- Who are the highest-value customers?
-- What percentage of customers are repeat customers?
-- How does revenue change over time?
-- Which months generate the highest sales?
-- How much revenue comes from repeat customers?
-- How concentrated is revenue among top customers?
-- What is the impact of cancelled orders?
-
----
-
-## 📦 Dataset
-
-The project uses the **Online Retail** dataset containing transactional retail sales data.
-
-### Dataset Fields
-
-| Field | Description |
-|---|---|
-| `InvoiceNo` | Invoice/order identifier |
-| `StockCode` | Product identifier |
-| `Description` | Product description |
-| `Quantity` | Number of units purchased |
-| `InvoiceDate` | Transaction date and time |
-| `UnitPrice` | Price per unit |
-| `CustomerID` | Customer identifier |
-| `Country` | Customer country |
-
-The raw dataset is excluded from GitHub using `.gitignore`.
-
----
-
-## 🧹 Data Preparation
-
-A cleaned analytical table called `sales_clean` was created from the raw transaction data.
-
-### Data Flow
-
-```text
-Raw Transactions
-       │
-       ▼
-Clean text fields
-       │
-       ▼
-Calculate revenue
-       │
-       ▼
-Identify cancelled invoices
-       │
-       ▼
-sales_clean
-```
-
-Revenue was calculated as:
-
-```text
-quantity × unit_price
-```
-
-Cancelled invoices were identified using invoice numbers beginning with `C`.
-
-For completed-sales analysis:
-
-```sql
-WHERE invoice_no NOT LIKE 'C%'
-```
-
-Customer-level analysis excludes missing or blank customer IDs when analysing customer behaviour.
 
 ---
 
@@ -152,18 +120,22 @@ Customer-level analysis excludes missing or blank customer IDs when analysing cu
 SQL-Sales-Analysis/
 │
 ├── data/
+│   └── sales_data.csv              # Local dataset; not tracked by Git
 │
 ├── database/
-│   └── sales_analysis.db
+│   └── sales_analysis.db           # Generated database; not tracked by Git
 │
 ├── sql/
-│   ├── 01_database_setup.sql
-│   ├── 02_basic_analysis.sql
-│   ├── 03_customer_analysis.sql
-│   ├── 04_product_analysis.sql
-│   ├── 05_time_analysis.sql
-│   ├── 06_advanced_analysis.sql
-│   └── 07_business_insights.sql
+│   ├── 01_database_setup.sql        # Database creation and data preparation
+│   ├── 02_basic_analysis.sql        # Overall sales KPIs
+│   ├── 03_customer_analysis.sql     # Customer-level analysis
+│   ├── 04_product_analysis.sql      # Product performance analysis
+│   ├── 05_time_analysis.sql         # Monthly and time-based trends
+│   ├── 06_advanced_analysis.sql     # Advanced SQL analysis
+│   ├── 07_business_insights.sql     # Business-focused findings
+│   ├── 08_data_quality_checks.sql   # Data-quality validation
+│   ├── 09_customer_retention.sql    # Repeat purchasing and retention
+│   └── 10_country_sales_analysis.sql # Country-level sales analysis
 │
 ├── screenshots/
 │   ├── executive_kpis.png
@@ -172,16 +144,52 @@ SQL-Sales-Analysis/
 │   ├── monthly_revenue.png
 │   └── customer_segments.png
 │
-├── DATA_DICTIONARY.md
-├── .gitignore
-└── README.md
+├── DATA_DICTIONARY.md               # Column definitions and data notes
+├── README.md
+└── .gitignore
 ```
 
-> The raw dataset and SQLite database are kept locally and excluded from GitHub because of their size.
+*Note: The `data/` and `database/` directories may not appear in a fresh clone until you create them locally. The CSV and database files are intentionally excluded from version control.*
+
+---
+
+## 🧹 Data Preparation and Quality
+
+The database setup and analysis scripts prepare the data for meaningful analysis.
+
+Key considerations include:
+
+- Calculating line-level revenue using `Quantity × UnitPrice`.
+- Identifying missing customer IDs and product descriptions.
+- Distinguishing completed invoices from cancellation invoices.
+- Checking for records that could affect revenue calculations.
+- Applying consistent filtering when comparing customer, product, time, and country results.
+
+The project includes a dedicated data-quality module to make these checks explicit rather than assuming the raw dataset is clean.
+
+---
+
+## 🧠 SQL Skills Demonstrated
+
+The project demonstrates practical use of:
+
+- `SELECT`, `WHERE`, `ORDER BY`, and `GROUP BY`
+- Aggregate functions such as `SUM`, `AVG`, `COUNT`, `MIN`, and `MAX`
+- Conditional aggregation and `CASE WHEN`
+- `COUNT(DISTINCT ...)`
+- Common table expressions (CTEs)
+- Date-based grouping and monthly trend analysis
+- Customer segmentation and repeat-purchase analysis
+- Revenue calculations and business KPIs
+- Data-quality checks and missing-value handling
+- Multi-step analytical queries
+- Country-level comparisons and ranking
 
 ---
 
 ## ▶️ How to Run
+
+Follow these steps to run the project locally or in GitHub Codespaces.
 
 ### 1. Clone the repository
 
@@ -190,273 +198,167 @@ git clone https://github.com/Ayushkr604/SQL-Sales-Analysis.git
 cd SQL-Sales-Analysis
 ```
 
-### 2. Download the Online Retail dataset
+If you are already working inside the repository in Codespaces, you can skip this step.
 
-Download the **Online Retail** dataset and place the CSV file inside:
+### 2. Install SQLite
+
+Make sure SQLite is installed and available in your terminal.
+
+Check the installation:
+
+```bash
+sqlite3 --version
+```
+
+### 3. Prepare the dataset
+
+Create the required local directories:
+
+```bash
+mkdir -p data database
+```
+
+Download the UCI Online Retail dataset and prepare a CSV file named:
 
 ```text
 data/sales_data.csv
 ```
 
-The raw dataset is intentionally excluded from GitHub because of its size.
+The setup script expects this exact path and filename. If you download the original Excel file, convert it to CSV first and ensure the column names match those used by the SQL setup script.
 
-### 3. Create the SQLite database
+**Important:** The raw dataset is not included in this repository. The database setup will not work until the CSV is in the expected location.
 
-Run:
+### 4. Create the database and prepare the tables
+
+Run the following command from the repository root:
+
+```bash
+sqlite3 database/sales_analysis.db ".read sql/01_database_setup.sql"
+```
+
+This runs the database setup script, which imports the CSV data and prepares the `sales_raw` and `sales_clean` tables.
+
+### 5. Run the analysis scripts
+
+Run each script from the repository root:
+
+```bash
+sqlite3 database/sales_analysis.db ".read sql/02_basic_analysis.sql"
+sqlite3 database/sales_analysis.db ".read sql/03_customer_analysis.sql"
+sqlite3 database/sales_analysis.db ".read sql/04_product_analysis.sql"
+sqlite3 database/sales_analysis.db ".read sql/05_time_analysis.sql"
+sqlite3 database/sales_analysis.db ".read sql/06_advanced_analysis.sql"
+sqlite3 database/sales_analysis.db ".read sql/07_business_insights.sql"
+sqlite3 database/sales_analysis.db ".read sql/08_data_quality_checks.sql"
+sqlite3 database/sales_analysis.db ".read sql/09_customer_retention.sql"
+sqlite3 database/sales_analysis.db ".read sql/10_country_sales_analysis.sql"
+```
+
+Each command executes its SQL file and displays the query results in the terminal.
+
+**Tip:** Run the scripts individually when exploring the results. This makes it easier to understand each query and its business purpose.
+
+### 6. Explore the database interactively
+
+Open the SQLite database:
 
 ```bash
 sqlite3 database/sales_analysis.db
 ```
 
-Then inside SQLite:
+List the tables:
 
 ```sql
-.read sql/01_database_setup.sql
+.tables
 ```
 
-This creates the `sales_raw` and `sales_clean` tables.
-
-### 4. Run the SQL analysis modules
-
-Run the analysis scripts in order:
+Inspect the cleaned data:
 
 ```sql
-.read sql/02_basic_analysis.sql
-.read sql/03_customer_analysis.sql
-.read sql/04_product_analysis.sql
-.read sql/05_time_analysis.sql
-.read sql/06_advanced_analysis.sql
-.read sql/07_business_insights.sql
+SELECT *
+FROM sales_clean
+LIMIT 10;
 ```
 
-### 5. Explore the results
+Exit SQLite:
 
-The SQL scripts generate analysis covering:
+```sql
+.quit
+```
 
-- Sales KPIs
-- Customer behaviour
-- Product performance
-- Monthly sales trends
-- Advanced customer and product analysis
-- Cancellation analysis
-- Business insights
+---
 
+## 📊 Analysis Modules
 
-# 🔎 Analysis Modules
+| File | Focus |
+|---|---|
+| `01_database_setup.sql` | Database creation, CSV import, and preparation of analysis tables |
+| `02_basic_analysis.sql` | Overall sales KPIs and transaction summaries |
+| `03_customer_analysis.sql` | Customer-level performance and spending |
+| `04_product_analysis.sql` | Product revenue and sales performance |
+| `05_time_analysis.sql` | Monthly revenue and time-based trends |
+| `06_advanced_analysis.sql` | Advanced analytical queries |
+| `07_business_insights.sql` | Business-focused findings |
+| `08_data_quality_checks.sql` | Missing values and data-quality checks |
+| `09_customer_retention.sql` | Repeat customers and retention analysis |
+| `10_country_sales_analysis.sql` | Revenue and order comparisons by country |
 
-## 01 — Database Setup
+---
 
-Creates the raw and cleaned analytical tables and prepares the dataset for analysis.
+## 📷 Project Screenshots
 
-## 02 — Basic Analysis
+The `screenshots/` folder is intended to showcase key query outputs and analytical findings.
 
-Answers fundamental sales questions including:
+When viewing the repository, use these screenshots to explore:
 
-- Total revenue
-- Total orders
-- Average revenue
-- Quantity sold
-- Number of products
-- Number of customers
-- Countries served
-
-## 03 — Customer Analysis
-
-Analyzes:
-
-- Top customers
-- Customer order frequency
-- One-time vs repeat customers
-- Customer value segments
-- Customer lifetime value
-- Revenue concentration
-
-## 04 — Product Analysis
-
-Analyzes:
-
+- Executive sales KPIs
+- Top customers by revenue
 - Top products by revenue
-- Top products by quantity
-- Average selling price
-- Product order frequency
-- Product revenue contribution
-- High-revenue products
+- Monthly revenue trends
+- Customer segments
 
-## 05 — Time Analysis
-
-Analyzes:
-
-- Monthly revenue
-- Monthly orders
-- Day-of-week performance
-- Hourly sales
-- Monthly revenue growth
-- Monthly AOV
-
-## 06 — Advanced Analysis
-
-Uses CTEs and window functions for deeper analysis including:
-
-- Customer lifetime value
-- Customer revenue ranking
-- Top products by country
-- Repeat customer revenue
-- Revenue concentration
-
-## 07 — Business Insights
-
-Combines the analysis into business-focused metrics covering:
-
-- Cancellation impact
-- Cancellation rate
-- Average order value
-- Average items per order
-- Revenue per customer
-- High-revenue products
-- Executive KPIs
+These images are supporting evidence for the analysis; the SQL scripts remain the source of the calculations.
 
 ---
 
-## 📊 Executive KPI Snapshot
+## 🔐 Data and Privacy
 
-| KPI | Value |
-|---|---:|
-| Completed Orders | **22,064** |
-| Customers | **4,373** |
-| Products | **4,070** |
-| Completed Revenue | **£10,644,560.42** |
-| Average Order Value | **£482.44** |
-| Repeat Customers* | **2,845** |
-| One-Time Customers* | **1,494** |
-| Cancelled Orders | **3,836** |
+The repository does not intentionally include the local raw CSV files, Excel dataset, or generated SQLite database.
 
-\*Based on customers with usable customer IDs.
+The `.gitignore` file excludes:
 
----
+```gitignore
+data/*.csv
+data/*.xlsx
+database/*.db
+```
 
-## 💡 Key Business Insights
-
-### 💰 Revenue Performance
-
-**£10.64M** in completed revenue was generated across **22,064 completed orders**, with an average order value of **£482.44**.
-
-### 👥 Customer Behaviour
-
-Among customers with usable customer IDs:
-
-- **2,845 repeat customers**
-- **1,494 one-time customers**
-
-### 📅 Sales Trend
-
-**November 2011** was the strongest sales month:
-
-**£1.51M revenue | 3,021 orders**
-
-### 🏆 High-Value Customers
-
-Customer **14646** generated:
-
-**£280,206.02 | 74 orders**
-
-Customer **16446** generated:
-
-**£168,472.50 | 2 orders**
-
-This represents a high-value customer pattern worth further investigation.
-
-### 🛍️ Product Performance
-
-**REGENCY CAKESTAND 3 TIER**
-
-**£174,484.74** revenue
-
-**PAPER CRAFT, LITTLE BIRDIE**
-
-**£168,469.60** revenue
-
-### 🔄 Cancellation Analysis
-
-The dataset contains:
-
-**3,836 cancelled orders**
-
-compared with:
-
-**22,064 completed orders**
-
-> **Note:** Completed-sales analysis excludes invoices beginning with `C`, which represent cancelled transactions.
+This keeps large local data files out of version control and allows the SQL analysis to be shared independently of the dataset.
 
 ---
 
-## 📸 Analysis Results
+## 🚀 Future Improvements
 
-### Executive KPIs
+Potential next steps for the project include:
 
-![Executive KPIs](screenshots/executive_kpis.png)
-
-### Customer Analysis
-
-![Top Customers](screenshots/top_customers.png)
-
-### Product Analysis
-
-![Top Products](screenshots/top_products_revenue.png)
-
-### Time Analysis
-
-![Monthly Revenue](screenshots/monthly_revenue.png)
-
-### Customer Segmentation
-
-![Customer Segmentation](screenshots/customer_segments.png)
+- Building an interactive Power BI dashboard
+- Adding visualizations for monthly revenue and customer retention
+- Creating a more detailed executive summary of business recommendations
+- Adding automated validation for query outputs
+- Improving the reproducibility of data preparation
+- Expanding the analysis with customer cohorts and product-category insights
 
 ---
 
-## 🧠 SQL Techniques Demonstrated
-
-- Aggregations using `SUM()`, `AVG()`, `COUNT()`
-- Filtering with `WHERE`
-- Grouping with `GROUP BY`
-- Conditional logic using `CASE`
-- Common Table Expressions (CTEs)
-- Subqueries
-- Window functions
-- `RANK()`
-- `LAG()`
-- Customer segmentation
-- Revenue and order analysis
-- Time-series analysis using `strftime()`
-- Cancellation analysis
-- Revenue concentration analysis
-
----
-
-## 🛠️ Tools & Technologies
-
-- SQL
-- SQLite
-- Python / Pandas
-- Git
-- GitHub
-- GitHub Codespaces
-
----
-
-## 📚 Documentation
-
-- [Data Dictionary](DATA_DICTIONARY.md)
-
----
-
-## 🚀 Future Enhancement
-
-The next phase of the project will be an interactive **Power BI dashboard** built from the cleaned sales dataset.
-
----
-
-## 👤 Author
+## 👨‍💻 Author
 
 **Ayush Kumar**
 
-Computer Science — BITS Pilani
+Computer Science undergraduate at BITS Pilani, Pilani Campus.
+
+Interested in data analytics, SQL, business intelligence, and data-driven problem solving.
+
+- **GitHub:** [Ayushkr604](https://github.com/Ayushkr604)
+- **Project Repository:** [SQL Sales Analysis](https://github.com/Ayushkr604/SQL-Sales-Analysis)
+
+---
